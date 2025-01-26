@@ -54,9 +54,11 @@ sudo tee /usr/local/bin/ssh2tg.sh << 'EOF'
 #!/usr/bin/env bash
 
 #-----------------------EDIT THESE VARIABLES-----------------------#
-TOKEN="***REMOVED***"
-KEY="***REMOVED***"
-TARGET="***REMOVED***"
+
+TOKEN="YOUR_IPINFO_TOKEN"
+KEY="YOUR_TELEGRAM_BOT_TOKEN"
+TARGET="YOUR_TELEGRAM_CHAT_ID"
+
 #------------------------------------------------------------------#
 
 # Exit if not session opening
