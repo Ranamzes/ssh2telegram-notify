@@ -2,8 +2,7 @@
 
 This guide explains how to set up Telegram notifications for SSH logins on your Linux server.
 
-![alt text](assets/image.png)
-*notification example*
+![notification example](assets/image.png)
 
 ## Prerequisites
 
