@@ -58,12 +58,30 @@ sudo tee /usr/local/bin/ssh2tg.sh << 'EOF'
 TOKEN="YOUR_IPINFO_TOKEN"
 KEY="YOUR_TELEGRAM_BOT_TOKEN"
 TARGET="YOUR_TELEGRAM_CHAT_ID"
+IGNORE_IPS="" # Space-separated list of IPs to ignore
 
 #------------------------------------------------------------------#
+
+# Function to check if IP should be ignored
+is_ip_ignored() {
+    local ip="$1"
+    for ignore_ip in $IGNORE_IPS; do
+        if [ "$ip" = "$ignore_ip" ]; then
+            return 0  # True, IP should be ignored
+        fi
+    done
+    return 1  # False, IP should not be ignored
+}
 
 # Exit if not session opening
 if [ "$PAM_TYPE" != "open_session" ]; then
     logger -t ssh2tg "Skipping notification for PAM_TYPE=$PAM_TYPE"
+    exit 0
+fi
+
+# Check if IP should be ignored
+if is_ip_ignored "$PAM_RHOST"; then
+    logger -t ssh2tg "Skipping notification for ignored IP: $PAM_RHOST"
     exit 0
 fi
 
